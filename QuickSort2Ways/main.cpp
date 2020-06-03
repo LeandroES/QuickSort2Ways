@@ -51,7 +51,29 @@ void quickSort(int arr[], int low, int high){
     
 }
 
-
+void quickSortMiddle(int arr[], int low, int high)
+{
+    if(low >= high) return;
+    int l1 = low;
+    int h1 = high;
+    int pivot = arr[low + (high - low)/2];
+    while(l1<=h1)
+    {
+        while(arr[l1] < pivot ){
+            l1++;
+        }
+        while(arr[h1] > pivot ){
+            h1--;
+        }
+        if(l1 <=h1){
+            swap(arr[l1], arr[h1]);
+            l1++;
+            h1--;
+        }
+    }
+    if(low < h1)quickSortMiddle(arr,low,h1); // < not <=
+    if(l1 < high)quickSortMiddle(arr,l1,high); // < not <=
+}
    
 void displayArray(int arr[], int size)
 {
@@ -85,6 +107,22 @@ int main()
     displayArray(A,n);
     printf("\r\n");
     
+    printf("////////////// Mid-Pivot ------>");
+    int A2[ size ] = { 0 };
+       srand( time( 0 ) );
+    for ( int i = 0; i < size; ++i ){
+          A2[ i ] = rand() % MAX;
+    }
+    int n2 = (sizeof(A2)/sizeof(A2[0]));
+    
+    printf("\r\n");
+    printf("Input Array: \r\n");
+    displayArray(A2,n2);
+    cout<<endl;
+    quickSortMiddle(A2, 0, n2-1);
+    printf("QuickSort Mid-Pivot way results: \r\n");
+    displayArray(A2,n2);
+    printf("\r\n");
     
     
 }
